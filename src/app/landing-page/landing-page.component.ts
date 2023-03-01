@@ -32,7 +32,9 @@ export class LandingPageComponent {
     public landingPageService: LandingPageService,
     private sanitizer: DomSanitizer,
     private router: Router
-  ) {}
+  ) {
+
+  }
 
   ngOnInit() {
     this.userEmail = localStorage.getItem('userEmail');
@@ -51,7 +53,7 @@ export class LandingPageComponent {
       description: ['', Validators.required],
       price: ['', Validators.required],
       imageData: [''],
-      userEmail: ['', Validators.required]
+      // userEmail: ['', Validators.required]
     });
   }
    logout() {
@@ -61,7 +63,6 @@ export class LandingPageComponent {
   
 
   getAllProducts() {
-    this.userEmail = localStorage.getItem('userEmail');
     this.landingPageService.getAllProducts().subscribe(
       (data: Product[]) => {
         this.products = data.map(product => ({
@@ -103,9 +104,9 @@ export class LandingPageComponent {
   }
 
  addNewProduct() {
-  this.userEmail = localStorage.getItem('userEmail');
   let formValues = this.addProductForm;
   formValues.value.imageData = this.imageData;
+  formValues.value.userEmail=this.userEmail
 
   this.landingPageService.addProduct(formValues.value).subscribe(
     (addedProduct: Product) => {

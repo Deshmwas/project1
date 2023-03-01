@@ -44,8 +44,7 @@ export class SignInComponent implements OnInit {
         if (response.message === 'Successfully logged in.') {
           alert(response.message);
           let userEmail=this.signInForm.value.email;
-           console.log(userEmail);
-    localStorage.setItem('userEmail', userEmail);
+         localStorage.setItem('userEmail', userEmail);
           this.router.navigate(['/landing-page']);
         } else {
           alert(response.message);
