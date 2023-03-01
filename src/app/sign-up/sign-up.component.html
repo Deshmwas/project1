@@ -1,0 +1,36 @@
+
+<body>
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>Username:</label>
+      <input type="text" formControlName="username">
+      <div *ngIf="signUpForm?.get('username')?.touched && signUpForm?.get('username')?.invalid" class="invalid-feedback">
+        Please enter a valid username.
+      </div>
+    </div>
+    <div>
+      <label>Full Name:</label>
+      <input type="text" formControlName="fullName">
+      <div *ngIf="signUpForm?.get('fullName')?.touched && signUpForm?.get('fullName')?.invalid" class="invalid-feedback">
+        Please enter your full name.
+      </div>
+    </div>
+    <div>
+      <label>Email:</label>
+      <input type="email" formControlName="email">
+      <div *ngIf="signUpForm?.get('email')?.touched && signUpForm?.get('email')?.invalid" class="invalid-feedback">
+        Please enter a valid email.
+      </div>
+    </div>
+    <div>
+      <label>Password:</label>
+      <input type="password" formControlName="password">
+      <div *ngIf="signUpForm?.get('password')?.touched && signUpForm?.get('password')?.invalid" class="invalid-feedback">
+        Please enter a password of at least 6 characters.
+      </div>
+    </div>
+    <button type="submit" [disabled]="!signUpForm.valid">Sign Up</button>
+    <a style="color: #101aa8;margin-top:10px" routerLink="/sign-in">Already have an account? Click to sign-in.</a>
+  </form>
+  
+</body>

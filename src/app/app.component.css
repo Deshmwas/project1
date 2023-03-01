@@ -1,0 +1,14 @@
+ nav {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em;
+  }
+  nav a {
+    margin-left: 1em;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
+  nav a:hover {
+    color: lightblue;
+  }
