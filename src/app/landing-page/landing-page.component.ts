@@ -15,11 +15,43 @@ import { Router } from '@angular/router';
   providers: [LandingPageService]
 })
 export class LandingPageComponent {
+ pagedProducts: Product[] | undefined;
+  page = 1; // current page number
+  pageSize = 20; // items per page
+  totalPages: number | undefined;
+  currentPage: any;
+  location: any;
+  productService: any;
+   query: string = '';
+goBack(): void {
+  this.location.back();
+}
+
+ previousPage() {
+    this.currentPage--;
+    this.loadProducts();
+  }
+ loadProducts(): void {
+  this.landingPageService.getAllProducts().subscribe((products: any[]) => {
+    this.products = products;
+  });
+}
+
+
+  nextPage() {
+    this.currentPage++;
+    this.loadProducts();
+  }
+
+  get paginatedProducts() {
+    const startIndex = (this.page - 1) * this.pageSize;
+    return this.products.slice(startIndex, startIndex + this.pageSize);
+  }
 
   addProductModal: any;
   editProductModal: any;
   products: any[] = [];
-  imageUrl: string = 'https://via.placeholder.com/150x150.png?text=Image+not+found';
+  image: string = 'https://via.placeholder.com/150x150.png?text=Image+not+found';
   imageSrc: any;
   addProductForm!: FormGroup;
   editProductForm!: FormGroup;
@@ -42,6 +74,7 @@ export class LandingPageComponent {
     this.addProductForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
+      stock: ['',Validators.required],
       price: ['', Validators.required],
       // imageData: [''],
       userEmail: ['', Validators.required]
@@ -51,6 +84,7 @@ export class LandingPageComponent {
       id: [ '', Validators.required],
       name: ['', Validators.required],
       description: ['', Validators.required],
+      stock: ['',Validators.required],
       price: ['', Validators.required],
       imageData: [''],
       // userEmail: ['', Validators.required]
@@ -67,7 +101,7 @@ export class LandingPageComponent {
       (data: Product[]) => {
         this.products = data.map(product => ({
           ...product,
-          imageUrl: product['imageUrl'],
+          image: product['imageUrl'],
           isLoading: false
         }));
 
@@ -82,7 +116,7 @@ export class LandingPageComponent {
   loadImagesForProducts() {
     this.userEmail = localStorage.getItem('userEmail');
     for (let product of this.products) {
-      if (product.imageUrl) {
+      if (product.image) {
         product.isLoading = true;
         this.landingPageService.getImage(product.imageUrl).subscribe(
           (image: Blob) => {
@@ -150,23 +184,18 @@ updateProduct() {
   // Call the landing page service to update the product
   this.landingPageService.updateProduct(formValues).subscribe(
     (updatedProduct: Product) => {
-      console.log('Product updated:', updatedProduct);
-
-      // Update the product in the local array of products
       const productIndex = this.products.findIndex(product => product.id === updatedProduct.id);
       if (productIndex !== -1) {
         this.products[productIndex] = {
           ...updatedProduct,
           imageUrl: updatedProduct['imageUrl'],
-          isLoading: false
+          isLoading: true,
         };
-        this.loadImagesForProducts();
+       
       }
-       // Reload all products from the server
       this.getAllProducts();
-
-      // Close the edit product modal
-      this.editProductModal = false;
+      location.reload(); // Reload the page after updating the product
+      alert('Product updated successfully.'); // Show success message
     },
     (error: any) => {
       console.log(`Error updating product: ${error}`);
@@ -177,21 +206,27 @@ updateProduct() {
 
   
 deleteProduct(id: any): void {
-  this.userEmail = localStorage.getItem('userEmail');
+  
   this.landingPageService.deleteProduct(id).subscribe(
-    () => {
-      this.products = this.products.filter(product => product.id !== id);
-      this.showSuccessMessage(`Product ${id} has been deleted successfully.`);
-    },
-    error => {
-      if (error.status === 404) {
-        this.showErrorMessage(`Product ${id} not found.`);
-      } else {
-        this.showErrorMessage(`Failed to delete product ${id}.`);
-      }
+  (response) => {
+    console.log('Success:', response);
+    this.products = this.products.filter(product => product.id !== id);
+    this.showSuccessMessage(response.message);
+  },
+  (error) => {
+    console.error('Error:', error);
+    let errorMessage = 'Failed to delete product.';
+    if (error.status === 404) {
+      errorMessage = `Product ${id} not found.`;
+    } else if (error.error && error.error.message) {
+      errorMessage = error.error.message;
     }
-  );
+    this.showErrorMessage(errorMessage);
+  }
+);
+
 }
+
   showSuccessMessage(arg0: string) {
     console.log('Success:', onmessage);
     
@@ -200,6 +235,12 @@ deleteProduct(id: any): void {
      console.error('Error:', onmessage);
   
   }
+confirmDeleteProduct(productId: number) {
+  if (window.confirm('Are you sure you want to delete this product?')) {
+    this.deleteProduct(productId);
+  }
+}
+
 
   createImageFromBlob(image: Blob, product: any) {
     let reader = new FileReader();
@@ -216,4 +257,5 @@ deleteProduct(id: any): void {
   onFileSelected(event: any) {
     this.imageData = event.target.files[0];
   }
+   
 }

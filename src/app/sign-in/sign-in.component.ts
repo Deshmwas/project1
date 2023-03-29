@@ -22,7 +22,7 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.signInForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+    
       username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(4)]]
     });
@@ -43,17 +43,16 @@ export class SignInComponent implements OnInit {
 
         if (response.message === 'Successfully logged in.') {
           alert(response.message);
-          let userEmail=this.signInForm.value.email;
-         localStorage.setItem('userEmail', userEmail);
-          this.router.navigate(['/landing-page']);
+         localStorage.setItem('userId',response.userId);
+          this.router.navigate(['/dashboard']);
         } else {
           alert(response.message);
         }
       },
-      error: (err) => {
-        alert('An error occurred while logging in. Please try again later.');
-        console.log(err);
-      }
+     error: (err) => {
+      alert(err); // display error message returned by the backend
+      console.log(err);
+    }
     });
   }
 }

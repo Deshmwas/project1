@@ -10,6 +10,23 @@ export class AppComponent {
   title = 'project1';
 authService: any;
  currentRoute: string | undefined;
+ signedIn = false;
+
+  logout() {
+    this.signedIn = false;
+    this.router.navigate(['/sign-in']);
+  }
+
+  // Call this method when the user signs in
+  signIn() {
+    this.signedIn = true;
+  }
+
+  // Call this method when the user signs out
+  signOut() {
+    this.signedIn = false;
+  }
+
 
   constructor(private router: Router) {
     this.router.events.subscribe(event => {

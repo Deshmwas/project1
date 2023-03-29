@@ -31,7 +31,7 @@ export class SignUpComponent implements OnInit{
       if (res) {
         alert("Registered successfully");
         // redirect to the signin page
-        window.location.href = "/sign-in";
+        window.location.href = "/admin-dashboard";
       }
     },
     error: (error) => {

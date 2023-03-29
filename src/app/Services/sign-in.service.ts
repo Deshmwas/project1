@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 
 const api_url ="https://localhost:7256/api/Users";
@@ -14,6 +14,16 @@ export class SignInService {
    
    
   login(body: any): Observable<any>{
-    return this.httpClient.post<any>(api_url + '/login', body, { responseType: 'json' });
-  }
+  return this.httpClient.post<any>(api_url + '/login', body, { responseType: 'json' })
+    .pipe(
+      catchError(error => {
+        // handle error response from backend
+        if (error.error && error.error.message) {
+          return throwError(error.error.message);
+        }
+        return throwError('An error occurred while logging in. Please try again later.');
+      })
+    );
+}
+
 }

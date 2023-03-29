@@ -1,0 +1,30 @@
+
+
+<div class="container">
+  <h1>Search Products</h1>
+  <div class="form-group">
+    <input type="text" class="form-control" [(ngModel)]="query" placeholder="Enter search query...">
+  </div>
+  <button class="btn btn-primary" (click)="search()">Search</button>
+  <button class="btn btn-secondary" (click)="clear()">Clear</button>
+  <div *ngIf="message" class="alert alert-warning">{{ message }}</div>
+  <div *ngIf="products">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.name }}</td>
+          <td>{{ product.price | currency }}</td>
+          <td>{{ product.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

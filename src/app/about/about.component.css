@@ -1,0 +1,38 @@
+.about {
+    padding: 50px 0;
+    background-color: #f7f7f7;
+    text-align: center;
+  }
+  
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+  
+  p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    text-align: justify;
+  }
+  
+  @media screen and (min-width: 768px) {
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  
+    p {
+      flex: 1;
+      margin-right: 30px;
+      text-align: left;
+    }
+  }
+ 

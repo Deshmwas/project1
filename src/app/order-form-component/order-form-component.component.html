@@ -1,0 +1,31 @@
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="productId">Product ID</label>
+    <input id="productId" type="text" formControlName="productId">
+  </div>
+  <div>
+    <label for="userId">User ID</label>
+    <input id="userId" type="text" formControlName="userId">
+  </div>
+  <div>
+    <label for="quantity">Quantity</label>
+    <input id="quantity" type="text" formControlName="quantity">
+  </div>
+  <div>
+    <label for="totalPrice">Total Price</label>
+    <input id="totalPrice" type="text" formControlName="totalPrice">
+  </div>
+  <div>
+    <label for="status">Status</label>
+    <input id="status" type="text" formControlName="status">
+  </div>
+  <div>
+    <label for="shippingDate">Shipping Date</label>
+    <input id="shippingDate" type="date" formControlName="shippingDate">
+  </div>
+  <div>
+    <label for="shippingAddress">Shipping Address</label>
+    <input id="shippingAddress" type="text" formControlName="shippingAddress">
+  </div>
+  <button type="submit" [disabled]="orderForm.invalid">Submit</button>
+</form>

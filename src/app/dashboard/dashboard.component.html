@@ -1,0 +1,23 @@
+<nav>
+  <ul> 
+   <li><a routerLink="/cart"><img src="./assets/images/cart1.png" alt="Cart Icon"></a></li>
+  </ul>
+</nav>
+<div class="dashboard">
+  <div class="product-bar">
+    <ul>
+      <li><a href="#">Fridges</a></li>
+      <li><a href="#">Microwaves</a></li>
+      <li><a href="#">Pressure Cookers</a></li>
+    </ul>
+  </div>
+  <div class="product-list">
+    <div class="product-item" *ngFor="let product of products">
+      <img [src]="'data:image/jpeg;base64,' + product['imageData']" alt="Product Image">
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <p>Price: {{ product.price }}</p>
+      <button (click)="addToCart(product)">Add to Cart</button>
+    </div>
+  </div>
+</div>
