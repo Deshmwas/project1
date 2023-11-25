@@ -13,10 +13,12 @@ import { OrdersComponent } from './orders/orders.component';
 import { SearchComponent } from './search/search.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderFormComponentComponent } from './order-form-component/order-form-component.component';
+import { ReceiptComponent } from './receipt/receipt.component';
+import { PaymentComponent } from './payment/payment.component';
 
 
 const routes: Routes = [
-   { path: '', redirectTo:'admin-dashboard',pathMatch:'full' },
+   { path: '', redirectTo:'home',pathMatch:'full' },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'landing-page', component: LandingPageComponent },
@@ -30,7 +32,8 @@ const routes: Routes = [
     { path: 'search', component: SearchComponent   },
    { path: 'cart', component: CartComponent   },
    { path: 'order-form-component', component: OrderFormComponentComponent  },
-     
+   { path: 'receipt', component: ReceiptComponent },
+   {path: 'payment', component: PaymentComponent}
     
 
 ]

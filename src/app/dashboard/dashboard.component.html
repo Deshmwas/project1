@@ -1,15 +1,24 @@
 <nav>
-  <ul> 
-   <li><a routerLink="/cart"><img src="./assets/images/cart1.png" alt="Cart Icon"></a></li>
-  </ul>
+   
+  <li>
+    <a routerLink="/cart" class="btn btn-primary">
+      <i style="font-size: 20px;" class="fa fa-cart-plus"></i>
+      <div style="font-size: 10px;" class="badge bg-danger">{{ cartCount$ | async }}</div>
+    </a>
+    <div class="cart-update-message" [ngStyle]="{ 'display': cartUpdateMessage ? 'block' : 'none' }">
+      {{ cartUpdateMessage }}<br>
+      <button (click)="clearCartUpdateMessage()">OK</button>
+    </div>
+  </li>
 </nav>
+
+
 <div class="dashboard">
   <div class="product-bar">
-    <ul>
-      <li><a href="#">Fridges</a></li>
-      <li><a href="#">Microwaves</a></li>
-      <li><a href="#">Pressure Cookers</a></li>
-    </ul>
+     <div class="search-bar">
+  <input type="text" placeholder="Search products..." [(ngModel)]="query">
+  <button type="submit" (click)="search()"><i class="fa fa-search"></i></button>
+</div>
   </div>
   <div class="product-list">
     <div class="product-item" *ngFor="let product of products">
@@ -19,5 +28,8 @@
       <p>Price: {{ product.price }}</p>
       <button (click)="addToCart(product)">Add to Cart</button>
     </div>
+  </div>
+   <div class="return-arrow">
+    <a  routerLink="" (click)="goBack()"><i class="fa fa-arrow-left"></i></a>
   </div>
 </div>

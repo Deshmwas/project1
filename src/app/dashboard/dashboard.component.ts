@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { CartService } from '../cart.service';
 import { Product } from '../landing-page/product';
 import { LandingPageService } from '../Services/landing-page.service';
+import { SearchService } from '../search.service';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,12 +18,37 @@ export class DashboardComponent {
   sanitizer: any;
   userEmail: string | null | undefined;
  cart: Product[] = [];
+  location: any;
+  cartCountSubscription: any;
+  cartUpdateMessageSubscription: any;
+  cartUpdateMessage: string | undefined;
+  cartCount$ = new BehaviorSubject<number>(0);
 
 
-  constructor(private landingPageService: LandingPageService,private cartService: CartService) { }
-
+  constructor(private landingPageService: LandingPageService,private cartService: CartService,private searchService: SearchService, private route: ActivatedRoute,) { }
+clear() {
+this.query = '';
+    this.products = [];
+}
+  query: string = '';
+  message: string | null = null;
+  errorMessage: string | null = null;
   ngOnInit(): void {
     this.getAllProducts();
+     this.subscribeToCartUpdates(); 
+  }
+  private subscribeToCartUpdates() {
+    this.cartCountSubscription = this.cartService.cartCount$.subscribe(
+      (count: number) => {
+        this.updateCartCount();
+      }
+    );
+
+    this.cartUpdateMessageSubscription = this.cartService.cartUpdateMessage$.subscribe(
+      (message: string) => {
+        this.cartUpdateMessage = message;
+      }
+    );
   }
 
   getAllProducts() {
@@ -32,47 +60,66 @@ export class DashboardComponent {
           isLoading: false
         }));
 
-        this.loadImagesForProducts();
       },
       (error: any) => {
         console.log(`Error fetching products: ${error}`);
       }
     );
   }
-   createImageFromBlob(image: Blob, product: any) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-      product.image = this.sanitizer.bypassSecurityTrustUrl(reader.result as string);
-      product.isLoading = false;
-    }, false);
-
-    if (image) {
-      reader.readAsDataURL(image);
-    }
-  }
 
   onFileSelected(event: any) {
     this.imageData = event.target.files[0];
   }
-  loadImagesForProducts() {
-    this.userEmail = localStorage.getItem('userEmail');
-    for (let product of this.products) {
-      if (product['imageUrl']) {
-        product['isLoading'] = true;
-        this.landingPageService.getImage(product['imageUrl']).subscribe(
-          (image: Blob) => {
-            this.createImageFromBlob(image, product);
-          },
-          (error: any) => {
-            console.log(`Error fetching image for product with ID ${product.id}: ${error}`);
-            product['isLoading'] = false;
-          }
-        );
-      }
-    }      
+ 
+   
+ goBack(): void {
+    this.location.back();
   }
-    addToCart(product:any) {
+  addToCart(product: any) {
     this.cartService.addToCart(product);
+    this.updateCartCount(); // Update cart count after adding to the cart
   }
+
+  private updateCartCount() {
+    this.cartCount$.next(this.cartService.getCart().length);
+  }
+
+
+ ngOnDestroy() {
+    this.unsubscribeFromCartUpdates();
+  }
+
+  private unsubscribeFromCartUpdates() {
+    if (this.cartCountSubscription) {
+      this.cartCountSubscription.unsubscribe();
+    }
+
+    if (this.cartUpdateMessageSubscription) {
+      this.cartUpdateMessageSubscription.unsubscribe();
+    }
+  }
+  clearCartUpdateMessage() {
+  this.cartUpdateMessage = ''; // Clear the message
+}
+
+
+ 
+search() {
+  this.searchService.search(this.query).subscribe(
+    (data: any) => {
+      if (data && data.message) {
+        alert(data.message); // Display the message in an alert if it exists
+        this.products = []; // Clear the products array
+      } else {
+        this.products = data;
+        this.message = null;
+      }
+    },
+    (error: any) => {
+      this.errorMessage = error.message;
+      this.products = [];
+    }
+  );
+}
 
 }

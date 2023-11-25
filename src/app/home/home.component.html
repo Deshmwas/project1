@@ -1,28 +1,39 @@
-<div class="container-fluid p-0" style="background-image: url('assets/images/jikoni.jpg'); background-position: right center; background-size: cover;">
-  <div class="row">
-    <div class="col-md-12">
-      <h1 class="display-4 text-center text-white pt-5">Welcome to Deshs kitchenware</h1>
-      <p class="lead text-center text-white">We offer a wide range of high quality kitchen products for all your needs</p>
+
+<nav>
+  <a href="sign-in">Sign In</a>
+  <a href="sign-up">Sign Up</a>  
+  <li>
+    <a routerLink="/cart" class="btn btn-primary">
+      <i style="font-size: 20px;" class="fa fa-cart-plus"></i>
+      <div style="font-size: 10px;" class="badge bg-danger">{{ cartCount$ | async }}</div>
+    </a>
+    <div class="cart-update-message" [ngStyle]="{ 'display': cartUpdateMessage ? 'block' : 'none' }">
+      {{ cartUpdateMessage }}<br>
+      <button (click)="clearCartUpdateMessage()">OK</button>
     </div>
-  </div>
+  </li>
+</nav>
+
+<div class="search-bar">
+  <input type="text" placeholder="Search products..." [(ngModel)]="query">
+  <button type="submit" (click)="search()"><i class="fa fa-search"></i></button>
 </div>
 
-<div class="container">
-  <h2 class="text-center">Some of Our Products</h2>
+<div class="container-fluid p-0" style="background-image: url('assets/images/gas desh 1.png'); background-position: right center; background-size: cover;">
   <div class="row">
-    <div class="col-md-4">
-      <img src="assets/images/cooker1.jpeg" class="img-fluid rounded" alt="gas cylinder image">
-      <h4 class="text-center">Sumsung,Cooker</h4>
-     
-    </div>
-    <div class="col-md-4">
-      <img src="assets/images/cooker2.jpeg" class="img-fluid rounded" alt="gas cylinder image">
-      <h4 class="text-center">LG,Cooker</h4>
-     
-    </div>
-    <div class="col-md-4">
-      <img src="assets/images/rico 1.jpeg" class="img-fluid rounded" alt="gas stove image">
-      <h4 class="text-center">Pressure Cooker</h4>
+    <div class="col-md-12">
+      <h1 class="display-4 text-center text-white pt-5">Welcome to Deshs Gasware</h1>
+      <p class="lead text-center text-white">We offer a wide range of high quality Gas products for all your needs</p>
     </div>
   </div>
 </div>
+<div class="product-list">
+    <div class="product-item" *ngFor="let product of products">
+      <img [src]="'data:image/jpeg;base64,' + product['imageData']" alt="Product Image">
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <p>Price: {{ product.price }}</p>
+      <button (click)="addToCart(product)">Add to Cart</button>
+    </div>
+  </div>
+

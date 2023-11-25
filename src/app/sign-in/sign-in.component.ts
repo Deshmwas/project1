@@ -50,7 +50,7 @@ export class SignInComponent implements OnInit {
         }
       },
      error: (err) => {
-      alert(err); // display error message returned by the backend
+      alert(err); 
       console.log(err);
     }
     });

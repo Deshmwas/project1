@@ -5,6 +5,7 @@ import { CartService } from '../cart.service';
 import { Product } from '../landing-page/product';
 import { OrdersService } from '../orders.service';
 import { OrderViewModel } from '../models/order-view-model';
+import { MpesaService } from '../mpesa.service';
 
 
 
@@ -18,14 +19,16 @@ export class CartComponent {
   cartForm!: FormGroup;
   userId: string | undefined;
   shippingAddress: string | undefined;
-  cartList: Product[] | undefined;
-  customerId: number | undefined;
+  // cartList: Product[] | undefined;
+  // customerId: number | undefined;
+  location: any;
 
   constructor(
     private cartService: CartService,
     private fb: FormBuilder,
     private ordersService: OrdersService,
-    private router: Router) {}
+    private router: Router,
+    private mpesaService: MpesaService) {}
 
   ngOnInit() {
     this.cart = this.cartService.getCart();
@@ -78,13 +81,14 @@ buyNow() {
       
     orderViewModels.push(orderViewModel);
     console.log(orderViewModel);
+     this.router.navigate(['/receipt'], { state: { orderViewModels } });
   }
 
   this.ordersService.createOrder(orderViewModels).subscribe(
     response => {
-      if (response.message === 'Orders placed successfully.') {
-        this.clearCart();
-        alert(response.message);
+      if (response.responseCode && response.responseMessage === 'Orders placed successfully.') {
+        alert(response.responseMessage);
+         this.cartService.clearCart();
         this.router.navigate(['/dashboard']);
       } else {
         console.error('Error creating order:', response);
@@ -108,5 +112,21 @@ removeProduct(index: number) {
 
   clearCart() {
     this.cart = [];
+  }
+   goBack(): void {
+    this.location.back();
+  }
+
+  makePayment() {
+    this.mpesaService.makePayment().subscribe(
+      (response) => {
+        console.log('Payment successful!', response);
+        
+      },
+      (error) => {
+        console.error('Payment failed!', error);
+        
+      }
+    );
   }
 }

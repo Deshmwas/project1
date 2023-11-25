@@ -13,7 +13,7 @@
   <button class="add-product-btn" (click)="showAddProductModal()">Add New Product</button>
   <button class="logout-btn" (click)="logout()">Logout</button>
   <table class="products-table">
-    <caption>Kitchen Products</caption>
+    <caption>Gas Products</caption>
     <thead>
       <tr>
         <th>Name</th>
@@ -50,12 +50,7 @@
     </tbody>
   </table>
 
-  <div class="pagination">
-    <button [disabled]="currentPage === 1" (click)="previousPage()">Previous</button>
-    <span>{{currentPage}} of {{totalPages}}</span>
-    <button [disabled]="currentPage === totalPages" (click)="nextPage()">Next</button>
-  </div>
-
+  
   <div class="modal" *ngIf="addProductModal">
     <h2>Add New Product</h2>
     <form [formGroup]="addProductForm">

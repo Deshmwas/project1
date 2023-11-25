@@ -1,0 +1,35 @@
+/* receipt.component.css */
+
+/* Style the outer container */
+.receipt {
+  border: 2px solid #ccc;
+  padding: 20px;
+  margin: 20px;
+  max-width: 400px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the heading */
+.receipt h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Style the order details section */
+.receipt div {
+  margin-bottom: 8px;
+}
+
+/* Style individual order details */
+.receipt div > div {
+  font-weight: bold;
+}
+
+/* Style the order date */
+.receipt div > div.order-date {
+  color: #777;
+}
+
+

@@ -1,0 +1,18 @@
+
+<div class="receipt">
+  <h2>Order Receipt</h2>
+  <div *ngFor="let order of orderViewModels">
+    <div>Product ID: {{ order.productId }}</div>
+    <div>User ID: {{ order.userId }}</div>
+    <div>Quantity: {{ order.quantity }}</div>
+    <div>Total Price: {{ order.totalPrice | currency:'USD':'symbol':'1.2-2' }}</div>
+    <div>Status: {{ order.status }}</div>
+    <div>Order Date: {{ order.orderDate | date:'short' }}</div>
+    <div>Shipping Address: {{ order.shippingAddress }}</div>
+    <div>Shipping Date: {{ order.shippingDate | date:'short' }}</div>
+   
+  </div>
+</div>
+
+
+

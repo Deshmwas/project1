@@ -1,12 +1,5 @@
 
-.cart {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
-
-.cart-products {
+/* .cart-products {
   margin-bottom: 20px;
 }
 
@@ -25,8 +18,18 @@
   margin-right: 10px;
 }
 
-.cart-summary {
+.empty-cart {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty-cart img {
+  margin-bottom: 10px;
+}
+
+.cart-summary.show-summary {
+  display: flex; 
   flex-direction: column;
   align-items: center;
   border: 1px solid #ccc;
@@ -34,12 +37,12 @@
   width: 100%;
 }
 
-.cart-summary p {
+.cart-summary.show-summary p {
   margin: 0;
   font-size: 16px;
 }
 
-.cart-summary button {
+.cart-summary.show-summary button {
   margin-top: 20px;
   padding: 10px 20px;
   background-color: #007bff;
@@ -50,7 +53,7 @@
   transition: background-color 0.3s ease;
 }
 
-.cart-summary button:hover {
+.cart-summary.show-summary button:hover {
   background-color: #0062cc;
 }
 
@@ -98,6 +101,7 @@ input[type="text"]:focus {
   outline: none;
   border-color: #007bff;
 }
+
 .remove-button {
   background-color: #dc3545;
   color: #fff;
@@ -111,4 +115,191 @@ input[type="text"]:focus {
 
 .remove-button:hover {
   background-color: #c82333;
+}
+.back-button {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  background-color: #ccc;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  position: relative;
+  height: 20px;
+  width: 20px;
+}
+
+.back-button:before {
+  content: '\2190';
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.back-button:hover {
+  background-color: #aaa;
+} */
+
+.cart-products {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-products ul {
+  list-style: none;
+  padding: 0;
+}
+
+.cart-products li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cart-products img {
+  margin-right: 10px;
+}
+
+.empty-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty-cart img {
+  margin-bottom: 10px;
+}
+
+.cart-summary.show-summary {
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 100%;
+}
+
+.cart-summary.show-summary p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.cart-summary.show-summary button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cart-summary.show-summary button:hover {
+  background-color: #0062cc;
+}
+
+.clear-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clear-button:hover {
+  background-color: #c82333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.remove-button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+  background-color: #c82333;
+}
+
+.back-button {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  background-color: #ccc;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  position: relative;
+  height: 20px;
+  width: 20px;
+}
+
+.back-button:before {
+  content: '\2190';
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.back-button:hover {
+  background-color: #aaa;
+}
+
+.buy-Now {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+   cursor:pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+.buy-Now:hover {
+background-color: #218838;
 }

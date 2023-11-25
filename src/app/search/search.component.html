@@ -1,24 +1,30 @@
 
 
-<div class="container">
+
+
+<!-- <div class="container">
   <h1>Search Products</h1>
-  <div class="form-group">
-    <input type="text" class="form-control" [(ngModel)]="query" placeholder="Enter search query...">
+  <div class="search-section">
+    <input type="text" class="search-input" [(ngModel)]="query" placeholder="Enter search query...">
+    <button class="btn search-button" (click)="search()">Search</button>
+    <button class="btn clear-button" (click)="clear()">Clear</button>
   </div>
-  <button class="btn btn-primary" (click)="search()">Search</button>
-  <button class="btn btn-secondary" (click)="clear()">Clear</button>
-  <div *ngIf="message" class="alert alert-warning">{{ message }}</div>
-  <div *ngIf="products">
-    <table class="table">
+
+  <div *ngIf="message" class="message-alert">{{ message }}</div>
+
+  <div *ngIf="products" class="product-table">
+    <table>
       <thead>
         <tr>
+          <th>Image</th>
           <th>Name</th>
           <th>Price</th>
           <th>Description</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products">
+        <tr *ngFor="let product of products" class="product-row">
+          <td><img [src]="'data:image/jpeg;base64,' + product['imageData']" alt="Product Image" class="product-image"></td>
           <td>{{ product.name }}</td>
           <td>{{ product.price | currency }}</td>
           <td>{{ product.description }}</td>
@@ -26,5 +32,37 @@
       </tbody>
     </table>
   </div>
-</div>
+</div> -->
+<div class="container">
+  <h1>Search Products</h1>
+  <div class="search-section">
+    <input type="text" class="search-input" [(ngModel)]="query" placeholder="Enter search query...">
+    <button class="btn search-button" (click)="search()">Search</button>
+    <button class="btn clear-button" (click)="clear()">Clear</button>
+  </div>
 
+  <div *ngIf="message" class="message-alert">{{ message }}</div>
+
+  <div *ngIf="products" class="product-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Stock</th> <!-- New column for Stock -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products" class="product-row">
+          <td><img [src]="'data:image/jpeg;base64,' + product['imageData']" alt="Product Image" class="product-image"></td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.price | currency }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product['stock'] }}</td> <!-- Display the stock for each product -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

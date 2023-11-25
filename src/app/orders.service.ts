@@ -29,10 +29,7 @@ export class OrdersService {
     return this.http.get<OrdersComponent>(url);
   }
 
-  // POST: Create a new order
-  // createOrder(order: OrdersComponent): Observable<OrdersComponent> {
-  //   return this.http.post<OrdersComponent>(api_url, order);
-  // }
+  
 createOrder(order: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -44,32 +41,25 @@ createOrder(order: any): Observable<any> {
         catchError((error: HttpErrorResponse) => {
           let errorMessage = 'Unknown error';
           if (error.error instanceof ErrorEvent) {
-            // client-side error
             errorMessage = `Error: ${error.error.message}`;
           } else if (error.status === 400) {
-            // server-side validation error
+     
             errorMessage = `Validation error: ${error.error.message}`;
           } else {
-            // other server-side error
+            
             errorMessage = `Error Code: ${error.status}\nMessage: ${error.error.message}`;
           }
           return throwError(errorMessage);
         })
       );
   }
-
   updateOrder(order: OrdersComponent): Observable<any> {
     const url = `${api_url}/${order.ordersId}`;
     return this.http.put(url, order);
   }
-
- 
   deleteOrder(id: number): Observable<any> {
     const url = `${api_url}/${id}`;
     return this.http.delete(url);
   }
- 
-
-
 }
 

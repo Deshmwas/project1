@@ -1,66 +1,33 @@
-<!-- <div class="cart">
-  <h2>Shopping Cart</h2>
-  <div class="cart-products">
-    <ul>
-      <li *ngFor="let product of cart">
-        <img [src]="'data:image/jpeg;base64,' + product['imageData']" alt="Product Image" width="50" height="50">
-        {{ product.name }} - {{ product.price }}
-      </li>
-    </ul>
-  </div>
-  <div class="cart-summary">
-    <p>Total Items: {{ getTotalItems() }}</p>
-    <p>Total Price: {{ getTotalPrice() }}</p>
- <ng-container *ngIf="cart.length">
-  <form [formGroup]="cartForm">
-    <div>
-      <label for="shippingAddress">Shipping Address:</label>
-      <input type="text" id="shippingAddress" formControlName="shippingAddress" required>
-    </div>
-    <button class="buy-Now" (click)="buyNow()">Buy Now</button>
-  </form>
 
-  <button class="clear-button" (click)="clearCart()">Clear Cart</button>
-</ng-container>
+<a class="back-button" href="javascript:history.back()">←</a>
 
-<ng-container *ngIf="!cart.length">
-  <p>Your cart is empty</p>
-</ng-container>
-
-  </div>
-</div>
-
-
- -->
 <div class="cart">
-  <h2>Shopping Cart</h2>
+  <h2></h2>
   <div class="cart-products">
-    <ul>
+    <ul *ngIf="cart.length">
       <li *ngFor="let product of cart; let i = index;">
         <img [src]="'data:image/jpeg;base64,' + product['imageData']" alt="Product Image" width="50" height="50">
         {{ product.name }} - {{ product.price }}
         <button class="remove-button" (click)="removeProduct(i)">Remove</button>
       </li>
     </ul>
+    <div *ngIf="!cart.length" class="empty-cart">
+      <img src="assets/images/cart1.png" alt="Cart Image" width="150" height="150">
+      <p>Add To Cart</p>
+    </div>
   </div>
-  <div class="cart-summary">
+  <div class="cart-summary" *ngIf="cart.length">
     <p>Total Items: {{ getTotalItems() }}</p>
     <p>Total Price: {{ getTotalPrice() }}</p>
- <ng-container *ngIf="cart.length">
-  <form [formGroup]="cartForm">
-    <div>
-      <label for="shippingAddress">Shipping Address:</label>
-      <input type="text" id="shippingAddress" formControlName="shippingAddress" required>
-    </div>
-    <button class="buy-Now" (click)="buyNow()">Buy Now</button>
-  </form>
+    <form [formGroup]="cartForm">
+      <div>
+        <label for="shippingAddress">Shipping Address:</label>
+        <input type="text" id="shippingAddress" formControlName="shippingAddress" required>
+      </div>
+      <button class="make-payment" routerLink="/payment">Make Payment</button>
 
-  <button class="clear-button" (click)="clearCart()">Clear Cart</button>
-</ng-container>
-
-<ng-container *ngIf="!cart.length">
-  <p>Your cart is empty</p>
-</ng-container>
-
+      <button class="buy-Now" (click)="buyNow()">Buy Now</button> 
+    </form>
+    <button class="clear-button" (click)="clearCart()">Clear Cart</button>
   </div>
 </div>

@@ -76,7 +76,6 @@ goBack(): void {
       description: ['', Validators.required],
       stock: ['',Validators.required],
       price: ['', Validators.required],
-      // imageData: [''],
       userEmail: ['', Validators.required]
     });
     this.userEmail = localStorage.getItem('userEmail');
@@ -87,7 +86,6 @@ goBack(): void {
       stock: ['',Validators.required],
       price: ['', Validators.required],
       imageData: [''],
-      // userEmail: ['', Validators.required]
     });
   }
    logout() {
@@ -105,7 +103,7 @@ goBack(): void {
           isLoading: false
         }));
 
-        this.loadImagesForProducts();
+        
       },
       (error: any) => {
         console.log(`Error fetching products: ${error}`);
@@ -113,23 +111,7 @@ goBack(): void {
     );
   }
 
-  loadImagesForProducts() {
-    this.userEmail = localStorage.getItem('userEmail');
-    for (let product of this.products) {
-      if (product.image) {
-        product.isLoading = true;
-        this.landingPageService.getImage(product.imageUrl).subscribe(
-          (image: Blob) => {
-            this.createImageFromBlob(image, product);
-          },
-          (error: any) => {
-            console.log(`Error fetching image for product with ID ${product.id}: ${error}`);
-            product.isLoading = false;
-          }
-        );
-      }
-    }      
-  }
+  
 
   showAddProductModal() {
     this.addProductForm.reset();
@@ -201,10 +183,7 @@ updateProduct() {
       console.log(`Error updating product: ${error}`);
     }
   );
-}
-
-
-  
+} 
 deleteProduct(id: any): void {
   
   this.landingPageService.deleteProduct(id).subscribe(
@@ -240,20 +219,6 @@ confirmDeleteProduct(productId: number) {
     this.deleteProduct(productId);
   }
 }
-
-
-  createImageFromBlob(image: Blob, product: any) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-      product.imageUrl = this.sanitizer.bypassSecurityTrustUrl(reader.result as string);
-      product.isLoading = false;
-    }, false);
-
-    if (image) {
-      reader.readAsDataURL(image);
-    }
-  }
-
   onFileSelected(event: any) {
     this.imageData = event.target.files[0];
   }

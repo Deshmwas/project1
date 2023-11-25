@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
+import { SearchService } from '../search.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../landing-page/product';
-import { SearchService } from '../search.service';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  selector: 'app-search2',
+  templateUrl: './search2.component.html',
+  styleUrls: ['./search2.component.css']
 })
-export class SearchComponent {
+export class Search2Component {
 clear() {
 this.query = '';
-     this.products = undefined;
+    this.products = undefined;
 }
- stock: number | undefined;
   query: string = '';
   products: Product[] | undefined;
   message: string | null = null;
@@ -43,4 +42,6 @@ this.query = '';
       }
     );}
 }
+
+
 

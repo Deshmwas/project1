@@ -21,10 +21,15 @@ import { SearchComponent } from './search/search.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderFormComponentComponent } from './order-form-component/order-form-component.component';
 import { OrdersService } from './orders.service';
+import { ReceiptComponent } from './receipt/receipt.component';
+import { PaymentComponent } from './payment/payment.component';
+import { Search2Component } from './search2/search2.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+
  
-
-
-
 
 @NgModule({
   declarations: [
@@ -42,6 +47,9 @@ import { OrdersService } from './orders.service';
     SearchComponent,
     CartComponent,
     OrderFormComponentComponent,
+    ReceiptComponent,
+    PaymentComponent,
+    Search2Component,
     
   ],
   imports: [
@@ -51,7 +59,12 @@ BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-     NgxPaginationModule,
+    NgxPaginationModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+  
       
     
   ],

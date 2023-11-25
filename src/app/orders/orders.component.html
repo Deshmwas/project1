@@ -1,28 +1,25 @@
 
-
 <table class="table">
   <thead>
     <tr>
       <th>Order ID</th>
-      <th>Product ID</th>
-      <th>User ID</th>
       <th>Order Date</th>
       <th>Quantity</th>
       <th>Total Price</th>
       <th>Status</th>
       <th>Shipping Address</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let order of orders">
       <td>{{ order.ordersId }}</td>
-      <td>{{ order.productsId }}</td>
-      <td>{{ order.usersId }}</td>
       <td>{{ order.orderDate | date }}</td>
       <td>{{ order.quantity }}</td>
       <td>{{ order.totalPrice }}</td>
       <td>{{ order.orderStatus }}</td>
       <td>{{ order.shippingAddress }}</td>
+      <td><button *ngIf="order.ordersId" (click)="deleteOrder(order.ordersId)">Delete</button></td>
     </tr>
   </tbody>
 </table>

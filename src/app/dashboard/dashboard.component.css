@@ -13,11 +13,7 @@ nav img {
   margin-right: 10px;
 }
 
-/* .dashboard {
-  margin: 20px auto;
-  max-width: 800px;
-  text-align: center;
-} */
+
 
  .dashboard {
   display: flex;
@@ -102,4 +98,69 @@ nav img {
 
 .product-item button:hover {
   background-color: #00b3b3;
+}
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  position: relative;
+}
+
+.return-arrow {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.return-arrow i {
+  font-size: 24px;
+}
+.search-bar input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 300px;
+}
+
+.search-bar button {
+  padding: 10px;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+.cart-update-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #285ba7;
+  color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeInOut 3s ease-in-out;
+  display: none;
+  z-index: 1000;
+  text-align: center; /* Center the text and button */
+}
+
+.cart-update-message button {
+  margin-top: 10px; /* Add some spacing between message and button */
+  background-color: #fff;
+  color: #28a745;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0;
+  }
+  25%, 75% {
+    opacity: 1;
+  }
 }
