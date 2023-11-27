@@ -44,7 +44,7 @@ export class SignInComponent implements OnInit {
         if (response.message === 'Successfully logged in.') {
           alert(response.message);
          localStorage.setItem('userId',response.userId);
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/payment']);
         } else {
           alert(response.message);
         }

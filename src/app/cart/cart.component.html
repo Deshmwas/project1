@@ -24,9 +24,11 @@
         <label for="shippingAddress">Shipping Address:</label>
         <input type="text" id="shippingAddress" formControlName="shippingAddress" required>
       </div>
-      <button class="make-payment" routerLink="/payment">Make Payment</button>
+      <!-- Your existing HTML content -->
 
-      <button class="buy-Now" (click)="buyNow()">Buy Now</button> 
+<button class="payment-button" (click)="makePayment()">Buy Now</button>
+
+      <button class="buy-Now" (click)="buyNow()">make your order</button> 
     </form>
     <button class="clear-button" (click)="clearCart()">Clear Cart</button>
   </div>

@@ -117,16 +117,11 @@ removeProduct(index: number) {
     this.location.back();
   }
 
-  makePayment() {
-    this.mpesaService.makePayment().subscribe(
-      (response) => {
-        console.log('Payment successful!', response);
-        
-      },
-      (error) => {
-        console.error('Payment failed!', error);
-        
-      }
-    );
-  }
+ makePayment() {
+  const totalAmount = this.getTotalPrice();
+
+  // Navigate to PaymentComponent with totalAmount as state
+  this.router.navigate(['/payment'], { state: { totalAmount } });
+}
+
 }

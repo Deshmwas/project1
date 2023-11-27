@@ -2,6 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MpesaService } from '../mpesa.service';
+import { Product } from '../landing-page/product';
+import { CartService } from '../cart.service';
+import { FormBuilder } from '@angular/forms';
+import { OrdersService } from '../orders.service';
 
 @Component({
   selector: 'app-payment',
@@ -12,8 +16,15 @@ export class PaymentComponent {
   paymentAmount: number | undefined;
   selectedPaymentMethod: string | undefined;
   paymentCompleted: boolean = false;
+   cart: Product[] = []; // Initialize the cart as an empty array
 
-  constructor(private router: Router, @Inject(MpesaService) private mpesaService: MpesaService) {}
+  constructor(private router: Router, @Inject(MpesaService) private mpesaService: MpesaService,
+  private cartService: CartService,
+    private fb: FormBuilder,
+    private ordersService: OrdersService,) {
+    const state = this.router.getCurrentNavigation()?.extras.state;
+    this.paymentAmount = state?.['totalAmount'];
+  }
 
   processPayment(): void {
     switch (this.selectedPaymentMethod) {
@@ -50,4 +61,6 @@ export class PaymentComponent {
     console.log('Okay button clicked!');
     this.router.navigate(['/cart']);
   }
+
+ 
 }
