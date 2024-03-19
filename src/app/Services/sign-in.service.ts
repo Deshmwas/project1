@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 
 
 const api_url ="https://localhost:7256/api/Users";
@@ -9,6 +9,7 @@ const api_url ="https://localhost:7256/api/Users";
   providedIn: 'root'
 })
 export class SignInService {
+ 
 
    constructor(private httpClient: HttpClient) { }
    
@@ -25,5 +26,18 @@ export class SignInService {
       })
     );
 }
-
+isLoggedIn(): Observable<boolean> {
+    // Make a request to your backend to check if the user is logged in
+    // Replace the following line with the actual endpoint or logic
+    return this.httpClient.get<any>(api_url + '/isLoggedIn').pipe(
+      map((response: { isLoggedIn: boolean; }) => {
+        // Assuming your backend returns a boolean indicating whether the user is logged in
+        return response?.isLoggedIn === true;
+      }),
+      catchError(error => {
+        console.error('Error checking if user is logged in:', error);
+        return throwError(false); // Assume not logged in on error
+      })
+    );
+  }
 }

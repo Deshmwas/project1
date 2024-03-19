@@ -10,6 +10,8 @@ interface Order {
   totalPrice: number;
   orderStatus: string;
   shippingAddress: string;
+  productName: string; // Updated to display actual product name
+  userName: string; 
 }
 
 @Component({
@@ -26,15 +28,19 @@ export class OrdersComponent {
   date: Date | undefined;
  
    orders: OrdersComponent[] = [];
-public productsId: string | undefined;
-  public usersId: string | undefined;
-  public orderDate: Date | undefined;
-  public quantity: number | undefined;
-  public totalPrice: number | undefined;
-  public orderStatus: string | undefined;
-  public shippingAddress: string | undefined;
+   productsId: string | undefined;
+  usersId: string | undefined;
+  orderDate: Date | undefined;
+  quantity: number | undefined;
+  totalPrice: number | undefined;
+  orderStatus: string | undefined;
+  shippingAddress: string | undefined;
   customerId: number | undefined;
   cartList: Product[] = [];
+  product: any;
+  user: any;
+  userName: any;
+  productName: any;
   
 
 

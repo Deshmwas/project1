@@ -33,7 +33,8 @@ const routes: Routes = [
    { path: 'cart', component: CartComponent   },
    { path: 'order-form-component', component: OrderFormComponentComponent  },
    { path: 'receipt', component: ReceiptComponent },
-   {path: 'payment', component: PaymentComponent}
+   {path: 'payment', component: PaymentComponent},
+   
     
 
 ]

@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { CartService } from '../cart.service';
 import { Product } from '../landing-page/product';
 import { OrdersService } from '../orders.service';
 import { OrderViewModel } from '../models/order-view-model';
 import { MpesaService } from '../mpesa.service';
+import { SignInService } from '../Services/sign-in.service';
+import { AuthGuardService } from '../auth-guard.service';
+import { filter, take } from 'rxjs';
 
 
 
@@ -15,6 +18,7 @@ import { MpesaService } from '../mpesa.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
+
   cart: Product[] = [];
   cartForm!: FormGroup;
   userId: string | undefined;
@@ -22,13 +26,14 @@ export class CartComponent {
   // cartList: Product[] | undefined;
   // customerId: number | undefined;
   location: any;
+  route: any;
 
   constructor(
     private cartService: CartService,
     private fb: FormBuilder,
     private ordersService: OrdersService,
     private router: Router,
-    private mpesaService: MpesaService) {}
+    private authGuardService: AuthGuardService) {}
 
   ngOnInit() {
     this.cart = this.cartService.getCart();
@@ -71,6 +76,8 @@ buyNow() {
     const orderViewModel: OrderViewModel = {
       productId: product.productId,
       userId: userId,
+       productName: product.productName, // Assuming you have productName in your product object
+     userName: userId.userName,
       quantity: product.quantity,
       totalPrice: product.price * product.quantity,
       status: 'Pending',
@@ -104,7 +111,6 @@ buyNow() {
   );
 }
 
-
 removeProduct(index: number) {
   this.cart.splice(index, 1);
 }
@@ -117,11 +123,37 @@ removeProduct(index: number) {
     this.location.back();
   }
 
- makePayment() {
-  const totalAmount = this.getTotalPrice();
+//  makePayment() {
+//   const totalAmount = this.getTotalPrice();
 
-  // Navigate to PaymentComponent with totalAmount as state
-  this.router.navigate(['/payment'], { state: { totalAmount } });
+//   // Navigate to PaymentComponent with totalAmount as state
+//   this.router.navigate(['/payment'], { state: { totalAmount } });
+// }
+ makePayment() {
+  // Check authentication using AuthGuardService
+  this.authGuardService.canActivate().subscribe((canActivate: boolean) => {
+    if (canActivate) {
+      const totalAmount = this.getTotalPrice();
+      // Navigate to PaymentComponent with totalAmount as state
+      this.router.navigate(['/payment'], { state: { totalAmount } });
+    } else {
+      // Redirect to sign-in page and preserve the query parameters
+      this.router.navigate(['/sign-in'], { queryParamsHandling: 'preserve' }).then(() => {
+        this.router.events.pipe(
+          filter((event: any) => event instanceof NavigationEnd),
+          take(1)
+        ).subscribe(() => {
+          const queryParams = this.route.snapshot.queryParams;
+          // Check if the 'redirect' parameter is present
+          if (queryParams['redirect'] === 'payment') {
+            const totalAmount = this.getTotalPrice();
+            // Navigate to PaymentComponent after successful sign-in
+            this.router.navigate(['/payment'], { state: { totalAmount } });
+          }
+        });
+      });
+    }
+  });
 }
 
 }

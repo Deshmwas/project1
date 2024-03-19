@@ -1,25 +1,23 @@
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Order ID</th>
-      <th>Order Date</th>
-      <th>Quantity</th>
-      <th>Total Price</th>
-      <th>Status</th>
-      <th>Shipping Address</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let order of orders">
-      <td>{{ order.ordersId }}</td>
-      <td>{{ order.orderDate | date }}</td>
-      <td>{{ order.quantity }}</td>
-      <td>{{ order.totalPrice }}</td>
-      <td>{{ order.orderStatus }}</td>
-      <td>{{ order.shippingAddress }}</td>
-      <td><button *ngIf="order.ordersId" (click)="deleteOrder(order.ordersId)">Delete</button></td>
-    </tr>
-  </tbody>
-</table>
+
+
+<!-- orders.component.html -->
+
+<div class="container mt-4">
+  <div *ngFor="let order of orders" class="card mb-3">
+    <div class="card-body">
+      <h3 class="card-title">Order ID: {{ order.ordersId }}</h3>
+      <p class="card-text"><strong>Date:</strong> {{ order.orderDate | date }}</p>
+      <p class="card-text"><strong>Quantity:</strong> {{ order.quantity }}</p>
+      <p class="card-text"><strong>Total Price:</strong> {{ order.totalPrice | currency }}</p>
+      <p class="card-text"><strong>Status:</strong> {{ order.orderStatus }}</p>
+      <p class="card-text"><strong>Shipping Address:</strong> {{ order.shippingAddress }}</p>
+      <p class="card-text"><strong>Product Name:</strong> {{ order.productName }}</p>
+      <p class="card-text"><strong>User Name:</strong> {{ order.userName }}</p>
+
+      <!-- You can add more fields as needed -->
+      <button *ngIf="order.ordersId" (click)="deleteOrder(order.ordersId)" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+  <hr /> <!-- Add a separator between orders -->
+</div>

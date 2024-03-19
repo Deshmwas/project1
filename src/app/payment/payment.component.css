@@ -1,4 +1,4 @@
-.payment-container {
+/* .payment-container {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
@@ -54,4 +54,71 @@ label {
   cursor: pointer;
   display: inline-block;
   margin-top: 10px;
+} */
+
+/* Add global styles if needed */
+
+.payment-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.payment-container h2 {
+  color: #333;
+}
+
+.payment-form {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.payment-button, .okay-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.okay-button {
+  background-color: #28a745;
+}
+
+.payment-confirmation {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+  color: #155724;
 }

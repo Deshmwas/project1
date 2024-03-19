@@ -28,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { AuthGuardService } from './auth-guard.service';
 
  
 
@@ -69,7 +70,8 @@ BrowserModule,
     
   ],
   exports: [RouterModule],
-  providers: [OrdersService],
+  providers: [OrdersService,
+    AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

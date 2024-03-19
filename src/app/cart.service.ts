@@ -8,6 +8,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class CartService {
+  isAuthenticated() {
+    throw new Error('Method not implemented.');
+  }
   public cart: Product[] = [];
   private cartCountSubject = new BehaviorSubject<number>(0);
   private cartUpdateMessageSubject = new BehaviorSubject<string>('');

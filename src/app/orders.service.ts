@@ -5,6 +5,7 @@ import { Product } from './landing-page/product';
 import { OrderFormComponentComponent } from './order-form-component/order-form-component.component';
 
 import { OrdersComponent } from './orders/orders.component';
+import { OrderViewModel } from './models/order-view-model';
 
 const api_url ="https://localhost:7256/api/Orders";
 
@@ -13,11 +14,11 @@ const api_url ="https://localhost:7256/api/Orders";
 })
 export class OrdersService {
   
+  
  
 
 
   constructor(private http: HttpClient) {}
-
   
   getOrders(): Observable<OrdersComponent[]> {
     return this.http.get<OrdersComponent[]>(api_url);
